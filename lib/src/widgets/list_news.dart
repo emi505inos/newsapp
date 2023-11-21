@@ -37,10 +37,54 @@ class _Noticia extends StatelessWidget{
           noticia: noticia,  
           index: index,),
           _TarjetaTitulo(noticia: noticia),
-          _TarjetaImagen(noticia: noticia)
+          _TarjetaImagen(noticia: noticia),
+          _TarjetaBody(noticia: noticia),
+          _TarjetaBotones(),
+          SizedBox(height: 10,),
+          Divider(),
       ],
     );
   }
+}
+
+class _TarjetaBotones extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: Colors.red,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Icon(Icons.star_border),  
+          ),
+          SizedBox(width: 10),
+          RawMaterialButton(
+            onPressed: (){},
+            fillColor: Colors.blue,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Icon(Icons.more),  
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TarjetaBody extends StatelessWidget{
+  final Article noticia;
+
+  const _TarjetaBody({required this.noticia});
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Text(noticia.description ??'' ),
+    );
+  }
+  
 }
 
 class _TarjetaImagen extends StatelessWidget {
@@ -58,7 +102,7 @@ class _TarjetaImagen extends StatelessWidget {
           child: (noticia.urlToImage != null) 
             ? FadeInImage(
                 placeholder: AssetImage('assets/img/giphy.gif'),
-                image: NetworkImage(noticia.urlToImage!),
+                image: NetworkImage(noticia.urlToImage??''),
               )
             : Image(image: AssetImage('assets/img/no-image.png'))
         ),
